@@ -58,9 +58,15 @@ class Solr(object):
                          'q' is a mandatory parameter.
 
         """
+        if 'headers' in kwargs:
+            raise Exception('Headers are malformed') if not isinstance(kwargs['headers'],dict)
+            headers = kwargs['headers']
+        else:
+            headers = {'Connection': 'close'}
+            
         query = build_request(kwargs)
         url = urljoin(self.base_url, resource)
-        headers = {'Connection': 'close'}
+        
         if self.use_get:
             http_response = self.make_request.get(url, params=query,
                                                   headers=headers)
