@@ -61,6 +61,7 @@ class Solr(object):
         if 'headers' in kwargs:
             raise Exception('Headers are malformed') if not isinstance(kwargs['headers'],dict)
             headers = kwargs['headers']
+            del kwargs['headers']
         else:
             headers = {'Connection': 'close'}
             
